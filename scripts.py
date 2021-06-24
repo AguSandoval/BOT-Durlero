@@ -88,8 +88,24 @@ def get_bitcoin_price():
   btc = select_usd['last']
   return btc
 
+def get_gif(search_term):
+  # set the apikey and limit
+  apikey = "9OZF8GQH6YWY"  # test value
+  lmt = 8
+  # get the top 8 GIFs for the search term
+  r = requests.get("https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % (search_term, apikey, lmt))
+  if r.status_code == 200:
+        # load the GIFs using the urls for the smaller GIF sizes
+        top_8gifs = json.loads(r.content)
+        a = (top_8gifs.get('results'))
+        b = a[0].get('media')
+        c = (b[0].get('gif')).get('url')
+        #print(r.content)
+  else:
+      c = None
 
-#def get_bitcoin_price():
-  #Using a simple
+  return c
 
-a = (1,2,3)
+# continue a similar pattern until the user makes a selection or starts a new search.
+
+

@@ -4,9 +4,12 @@ from discord.ext import commands, tasks
 import requests
 import scripts
 import random
+import asyncio
+from discord.ext.commands import Bot
 
-client = commands.Bot(command_prefix = '!')
+client = Bot(command_prefix = '.')
 status = discord.Game("ser Elon Musk")
+
 
 
 @client.event
@@ -42,11 +45,7 @@ async def btc(ctx, cant=0.0):
                    f'\t- Venta: {btc_usd_sell}USD')
   else:
     await ctx.send('*Si tenes dudas, usá !help o !help btc* - Debes escribir sólo !btc para ver el valor del BITCOIN ó'
-                   '!btc (cantidad) para saber cuantos pesos obtendrías de la venta de BTC en RIPIO')
-
-
-
-
+                   '.btc (cantidad) para saber cuantos pesos obtendrías de la venta de BTC en RIPIO')
 
 
 
@@ -130,6 +129,21 @@ async def gay(ctx):
 async def ping(ctx):
   await ctx.send(f'La latencia es {round(client.latency * 1000)}ms')
 
+
+@client.command(pass_context=True, help = '- Elimina X cantidad de mesajes')
+async def clear(ctx, amount=0):
+    amount = int(amount)
+    if amount == 0:
+        await ctx.send('Debes ingresar la cantidad de mensajes que deseas borrar, ej.: .clear ' + str(random.randint(1,100)))
+    else:
+        try:
+            await ctx.message.channel.purge(limit = amount)
+        except:
+            await ctx.send('No tengo suficientes permisos para borrar mensajes, modifícalos y vuelve a intentar.')
+
+@client.command(pass_context=True)
+async def gif(ctx, search_terms = ''):
+    await ctx.send(scripts.get_gif(search_terms))
 
 token = os.environ['token']
 client.run(token)
