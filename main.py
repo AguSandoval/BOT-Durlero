@@ -44,6 +44,29 @@ async def btc(ctx, cant=0.0):
     await ctx.send('*Si tenes dudas, usá !help o !help btc* - Debes escribir sólo !btc para ver el valor del BITCOIN ó'
                    '!btc (cantidad) para saber cuantos pesos obtendrías de la venta de BTC en RIPIO')
 
+
+
+
+
+
+
+@client.command(pass_content=True)
+async def dolar(ctx, cant=0.0):
+    dolar_blue = scripts.get_dollar_blue()
+    dolar_blue_compra, dolar_blue_venta = dolar_blue[0], dolar_blue[1]
+    if cant != 0:
+        #dolar_blue_compra = scripts.format_value(str(dolar_blue_compra * cant))
+        dolar_blue_venta = scripts.format_value(str(dolar_blue_venta * cant))
+        await ctx.send(f'Si vendés $**{cant} Dólares**, obtendrías: \n'
+                   f'>>\t\t__**${dolar_blue_venta}**__ ARS\n\n')
+    elif cant == 0.0:
+        dolar_blue_compra = scripts.format_value(str(dolar_blue_compra))
+        dolar_blue_venta = scripts.format_value(str(dolar_blue_venta))
+        await ctx.send(f'\t\t>>>>> __**DÓLAR BLUE**__ <<<<<\n'
+                       f'__*Valor en ARS:*__ \n'
+                       f'\t- Compra: ${dolar_blue_compra}\n'
+                       f'\t- Venta: ${dolar_blue_venta}\n\n')
+
 @client.command(pass_context=True)
 async def eth(ctx, cant=0.0):
     eth_ars_ripio = scripts.eth_ars_RIPIO(scripts.read_api_RIPIO())
@@ -108,6 +131,5 @@ async def ping(ctx):
   await ctx.send(f'La latencia es {round(client.latency * 1000)}ms')
 
 
-#token = os.environ['token']
-token = 'ODU0MTc0NDI5NTI0NjU2MTQ4.YMgF7Q.nkqyPXrF9anNGXxVPqsKaquTR6s'
+token = os.environ['token']
 client.run(token)

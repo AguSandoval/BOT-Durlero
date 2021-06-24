@@ -1,6 +1,7 @@
 import json
 from urllib.request import urlopen, Request
 import requests
+from bs4 import BeautifulSoup
 
 def read_api_RIPIO():
   # Lee la API de RIPIO y devuelve los valores en JSON
@@ -11,6 +12,29 @@ def read_api_RIPIO():
   response = urlopen(req)
   data_json = json.loads(response.read())
   return data_json
+
+def get_dollar_blue():
+  #WebScrapping from DolarHoy to get the 'Dolar Blue' variant
+  url = "https://www.dolarhoy.com/cotizaciondolarblue"
+  page = requests.get(url)
+  soup = BeautifulSoup(page.content, "html.parser")
+  valores = soup.find_all('div', "value")
+
+  precio_compra = valores[0].text
+  precio_venta = valores[1].text
+
+  compra = remove_first_char(precio_compra)
+  venta = remove_first_char(precio_venta)
+
+  return compra, venta
+
+def remove_first_char(string):
+  value = ''
+  for char in string:
+    if char != '$':
+      value += char
+  return float(value)
+
 
 
 def btc_ars_RIPIO(json):
@@ -53,7 +77,6 @@ def format_value(value):
      array_value[i] = ','
   value_formatted = "".join(array_value)
   return value_formatted
-
 
 
 def get_bitcoin_price():
