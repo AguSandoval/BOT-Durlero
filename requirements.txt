@@ -1,3 +1,6 @@
 Discord
 Asyncio
 Requests
+Urllib
+Bs4
+Json
