@@ -2,4 +2,4 @@ Discord
 Asyncio
 Requests
 Bs4
-Json
+json
