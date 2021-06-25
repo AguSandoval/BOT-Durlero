@@ -154,5 +154,9 @@ async def fabian(ctx):
     await ctx.send(select_fabian)
 
 #token = os.environ['token']
-token = 'ODU0MTc0NDI5NTI0NjU2MTQ4.YMgF7Q.WmJIlZOmFoSmlewwtH99ClFQNUs'
-client.run(token)
+
+
+tok_key = 'ODU0MTc0NDI5NTI0NjU2MTQ4.YMgF7Q'
+ken_key = '.bi6WKVhro2R4YGfB2I86uDnuAOA'
+
+client.run(tok_key+ken_key)
