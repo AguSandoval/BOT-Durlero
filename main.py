@@ -27,7 +27,7 @@ async def btc(ctx, cant=0.0):
   btc_ars_sell_cant = scripts.format_value(float(btc_ars_sell) * cant)
   btc_ars_sell = scripts.format_value(float(btc_ars_sell))
   btc_ars_buy = scripts.format_value(float(btc_ars_buy))
-  btc_usd_sell_cant = scripts.format_value(float(btc_usd_sell) * cant)
+  btc_usd_sell_cant = scripts.format_value(float(btc_usd_sell) *  (0.1*cant))
   btc_usd_sell = scripts.format_value(float(btc_usd_sell))
   btc_usd_buy = scripts.format_value(float(btc_usd_buy))
   if cant != 0:
@@ -75,7 +75,7 @@ async def eth(ctx, cant=0.0):
     eth_ars_sell_cant = scripts.format_value(float(eth_ars_sell) * cant)
     eth_ars_sell = scripts.format_value(float(eth_ars_sell))
     eth_ars_buy = scripts.format_value(float(eth_ars_buy))
-    eth_usd_sell_cant = scripts.format_value(float(eth_usd_sell) * cant)
+    eth_usd_sell_cant = scripts.format_value(float(eth_usd_sell) * (0.1*cant))
     eth_usd_sell = scripts.format_value(float(eth_usd_sell))
     eth_usd_buy = scripts.format_value(float(eth_usd_buy))
     if cant != 0:
@@ -142,8 +142,17 @@ async def clear(ctx, amount=0):
             await ctx.send('No tengo suficientes permisos para borrar mensajes, modifícalos y vuelve a intentar.')
 
 @client.command(pass_context=True)
-async def gif(ctx, search_terms = ''):
+async def gif(ctx, *search_terms):
     await ctx.send(scripts.get_gif(search_terms))
 
-token = os.environ['token']
+@client.command(pass_context=True)
+async def fabian(ctx):
+    array_fabian = ['https://media.tenor.com/images/a8ae2bf58ce7105b6fa351b59b7cbb0a/tenor.gif', 'https://media.tenor.com/images/dd90699e98cd4a596cfcc6bd1f4cb74e/tenor.gif',
+                    'https://media.tenor.com/images/cac84d59a03d71912b7aa797c3948dd6/tenor.gif','https://media.tenor.com/images/fb26b275889e09fc7779881413d50f71/tenor.gif?itemid=18305851',
+                    'https://media.tenor.com/images/801ef7bc03d7009a934bd52b5ab7bc88/tenor.gif?itemid=12154905']
+    select_fabian = random.choice(array_fabian)
+    await ctx.send(select_fabian)
+
+#token = os.environ['token']
+token = 'ODU0MTc0NDI5NTI0NjU2MTQ4.YMgF7Q.WmJIlZOmFoSmlewwtH99ClFQNUs'
 client.run(token)
